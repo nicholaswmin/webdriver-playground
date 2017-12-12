@@ -1,0 +1,31 @@
+{
+  "name": "webdriver-playground",
+  "version": "0.1.0",
+  "description": "W3C WebDriver playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholaswmin/webdriver-playground.git"
+  },
+  "keywords": [
+    "w3c-webdriver",
+    "webdriver",
+    "testing"
+  ],
+  "author": "@nicholaswmin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicholaswmin/webdriver-playground/issues"
+  },
+  "homepage": "https://github.com/nicholaswmin/webdriver-playground#readme",
+  "dependencies": {
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "shortid": "^2.2.8"
+  }
+}
