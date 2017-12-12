@@ -23,7 +23,8 @@
   "homepage": "https://github.com/nicholaswmin/webdriver-playground#readme",
   "dependencies": {
     "request": "^2.83.0",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.5",
+    "webdriver-actions": "^0.1.4"
   },
   "devDependencies": {
     "shortid": "^2.2.8"

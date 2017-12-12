@@ -3,29 +3,27 @@
 const shortid = require('shortid')
 const WebDriver = require('./webdriver')
 
-const browser = new WebDriver()
+const browser = new WebDriver({ driverUrl: 'http://127.0.0.1:4444' })
 
 browser.init()
 .then(browser => {
   return browser.goToUrl(`http://localhost:5001/go/as/${shortid.generate()}`)
 })
+.then(browser => browser.pause(5000))
 .then(browser => {
-  return browser.pause(10000)
-})
-.then(browser => {
-  return browser.performPointerActions([
+  return browser.performActions([
     {
       type: 'key',
       id: 'keyboard_1',
       actions: [
-        { 'type': 'keyDown', 'value': '\uE00C', 'duration': 1000 },
+        { 'type': 'keyDown', 'value': '\uE00C' },
       ]
     }
   ])
 })
-.then(browser => browser.pause(1000))
+.then(browser => browser.pause(2000))
 .then(browser => {
-  return browser.performPointerActions([
+  return browser.performActions([
     {
       type: 'pointer',
       id: 'pointer_1',
@@ -48,7 +46,9 @@ browser.init()
     }
   ])
 })
-.then(browser => browser.pause(5000))
-.then(browser => browser.releasePointerActions())
+.then(browser => browser.releaseActions())
+.then(browser => browser.pause(1500))
 .then(browser => browser.end())
-.catch(console.error)
+.catch(err => {
+  console.log(err)
+})
