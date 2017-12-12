@@ -50,5 +50,6 @@ browser.init()
 .then(browser => browser.pause(1500))
 .then(browser => browser.end())
 .catch(err => {
-  console.log(err)
+  console.error(err)
+  browser.end(err)
 })

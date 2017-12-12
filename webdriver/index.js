@@ -1,13 +1,18 @@
 'use strict'
 
-const shortid = require('shortid')
 const child_process = require('child_process')
+
 const rp = require('request-promise-native')
+const shutdownHandler = require('shutdown-handler')
 const WebdriverActions = require('webdriver-actions')
+const shortid = require('shortid')
 
 class WebDriver {
   constructor({ driverUrl }) {
     this.driverUrl = driverUrl
+    this.session = null
+
+    shutdownHandler.on('exit', this._shutdownGracefully.bind(this))
   }
 
   init() {
@@ -75,7 +80,9 @@ class WebDriver {
     })
   }
 
-  releaseActions(actions) {
+  async releaseActions(actions) {
+    if (await this._actionsApiUnsupported()) return this
+
     return rp({
       method: 'DELETE',
       uri: `${this.driverUrl}/session/${this.session.sessionId}/actions`
@@ -94,8 +101,6 @@ class WebDriver {
   }
 
   getActiveElementId() {
-    if (await this._actionsApiUnsupported()) return
-
     return rp({
       method: 'GET',
       uri: `${this.driverUrl}/session/${this.session.sessionId}/element/active`,
@@ -118,6 +123,20 @@ class WebDriver {
         resolve(true)
       })
     })
+  }
+
+  _shutdownGracefully(e) {
+    if (!this.session) return
+
+    e.preventDefault()
+
+    this.end()
+      .then(() => {
+        process.exit()
+      })
+      .catch(() => {
+        process.exit()
+      })
   }
 }
 
