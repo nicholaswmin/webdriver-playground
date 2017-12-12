@@ -5,7 +5,6 @@ const child_process = require('child_process')
 const rp = require('request-promise-native')
 const shutdownHandler = require('shutdown-handler')
 const WebdriverActions = require('webdriver-actions')
-const shortid = require('shortid')
 
 class WebDriver {
   constructor({ driverUrl }) {
