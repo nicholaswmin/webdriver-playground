@@ -3,7 +3,13 @@
 const shortid = require('shortid')
 const WebDriver = require('./webdriver')
 
-const browser = new WebDriver({ driverUrl: 'http://127.0.0.1:4444' })
+const browser = new WebDriver({
+  driverUrl: 'http://127.0.0.1:4444',
+  desiredCapabilities: {
+    browserName: 'chrome',
+    pageLoadStrategy: 'normal'
+  }
+})
 
 browser.init()
 .then(browser => {

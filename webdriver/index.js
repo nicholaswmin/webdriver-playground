@@ -7,9 +7,10 @@ const shutdownHandler = require('shutdown-handler')
 const WebdriverActions = require('webdriver-actions')
 
 class WebDriver {
-  constructor({ driverUrl }) {
+  constructor({ driverUrl, desiredCapabilities }) {
     this.driverUrl = driverUrl
     this.session = null
+    this.desiredCapabilities = desiredCapabilities
 
     shutdownHandler.on('exit', this._shutdownGracefully.bind(this))
   }
@@ -19,9 +20,7 @@ class WebDriver {
       method: 'POST',
       uri: `${this.driverUrl}/session`,
       body: {
-        desiredCapabilities: {
-          browserName: 'chrome'
-        }
+        desiredCapabilities: this.desiredCapabilities
       },
       json: true
     })
